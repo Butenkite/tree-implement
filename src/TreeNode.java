@@ -1,17 +1,15 @@
-public class TreeNode {
-    int value;
-    TreeNode left;
-    TreeNode right;
+public class TreeNode<E> {
+    E value;
+    TreeNode<E> left;
+    TreeNode<E> right;
 
-    public TreeNode(int value, TreeNode left, TreeNode right){
+    public TreeNode(E value, TreeNode<E> left, TreeNode<E> right) {
         this.value = value;
         this.left = left;
         this.right = right;
     }
-
-    public TreeNode(int value){
+  
+    public TreeNode(E value) {
         this(value, null, null);
     }
-
-
 }
