@@ -1,4 +1,5 @@
-public class Traversal {
+import java.util.*;
+public class Traversal { 
   public static void main(String[] args) {
     TreeNode<Integer> root = new TreeNode<>(10, null, null);
     root.left = new TreeNode<>(15);
@@ -18,7 +19,63 @@ public class Traversal {
     stringRoot.right.left = new TreeNode<>("jays");
     stringRoot.right.left.right = new TreeNode<>("robocop");
 
-    System.out.println(countNodes(root));
+    TreeNode<Integer> megaRoot = new TreeNode<>(1);
+    TreeNode<Integer> current = megaRoot;
+    for(int i = 2; i < 30001; i++){
+      TreeNode<Integer> node = new TreeNode<>(i);
+      current.right = node;
+      current = current.right;
+    }
+
+    Set<Integer> set = convertToSet(root);
+    System.out.println(set);
+
+  }
+
+  public static void preOrderIter(TreeNode<?> current){
+    Stack<TreeNode<?>> stack = new Stack<>();
+    stack.push(current);
+
+    while(!stack.isEmpty()){
+      TreeNode<?> node = stack.pop();
+      if(node == null) continue;
+      System.out.println(node.value);
+      stack.push(node.right);
+      stack.push(node.left);
+    }
+  }
+
+  public static <T> Set<T> convertToSet(TreeNode<T> root){
+    Set<T> set = new HashSet<>();
+
+    convertToSetHelper(root, set);
+
+    return set;
+  }
+
+  public static int countDistinctValues(TreeNode<?> root){
+    Set<?> values = convertToSet(root);
+    return values.size();
+  }
+
+  public static <T> void convertToSetHelper(TreeNode<T> current, Set<T> set){
+    if(current == null) return;
+    set.add(current.value);
+    convertToSetHelper(current.left, set);
+    convertToSetHelper(current.right, set);
+  }
+
+  public static void levelOrderIter(TreeNode<?> current){
+    Queue<TreeNode<?>> queue = new LinkedList<>();
+    queue.add(current);
+
+    while(!queue.isEmpty()){
+      TreeNode<?> node = queue.poll();
+      if(node == null) continue;
+      System.out.println(node.value);
+      queue.add(node.left);
+      queue.add(node.right);
+    }
   }
 
   public static void preOrder(TreeNode<?> current) {
